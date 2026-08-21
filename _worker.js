@@ -35,6 +35,11 @@ export default {
 		const hosts = env.HOST ? (await 整理成数组(env.HOST)).map(h => h.toLowerCase().replace(/^https?:\/\//, '').split('/')[0].split(':')[0]) : [url.hostname];
 		const host = hosts[0];
 		const 访问路径 = url.pathname.slice(1).toLowerCase();
+    // +++ 新增 favicon 处理 +++
+    if (访问路径 === 'favicon.ico') {
+            return Response.redirect('https://raw.githubusercontent.com/dragonadd/images/refs/heads/master/1776334710461.ico', 301);
+        }
+    // +++ 新增结束 +++
 		调试日志打印 = ['1', 'true'].includes(env.DEBUG) || 调试日志打印;
 		预加载竞速拨号 = ['1', 'true'].includes(env.PRELOAD_RACE_DIAL) || 预加载竞速拨号;
 		反代并发拨号数 = Math.max(1, Number(env.PROXY_CONCURRENT_DIAL) || 反代并发拨号数);
